@@ -1,3 +1,0 @@
-type = scripted
-command = modmanager enable diy_glasses live_audio_dji
-stop-command = modmanager disable diy_glasses live_audio_dji
