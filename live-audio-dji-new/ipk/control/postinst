@@ -1,0 +1,7 @@
+#!/system/bin/sh
+
+#enable the live audio mod
+/opt/sbin/dinitctl enable live-audio-dji || true
+
+#set the volume to 5 (0) will disable it
+setprop persist.dji.volume.headphone 6
