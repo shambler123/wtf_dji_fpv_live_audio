@@ -1,0 +1,3 @@
+#!/system/bin/sh
+#disable live audio mod
+/opt/sbin/dinitctl disable live-audio-dji || true
