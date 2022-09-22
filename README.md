@@ -12,5 +12,5 @@ This is only working with v1 goggles and the air unit with microphone (Vista / R
 - If live audio is enabled videos containing audio can not be played
 
 ##### Credits
-# Its inspired by funnel who found the solution for v1 out
-# https://github.com/funneld/djifpv_enable_live_audio
+- Its inspired by funnel who found the solution for v1 out
+- https://github.com/funneld/djifpv_enable_live_audio
