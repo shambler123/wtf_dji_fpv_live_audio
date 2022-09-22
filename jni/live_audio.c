@@ -75,6 +75,12 @@ int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
 	if(hardware_info != 0 && !isAirUnitLite()){
         updateConnection();
 
+        if(connection != GS_LINK_STAT_NORMAL){
+           clock_gettime(CLOCK_MONOTONIC, &last);
+        } else {
+           clock_gettime(CLOCK_MONOTONIC, &now);
+        }
+
 		if ((now.tv_sec - last.tv_sec) > 9) {
 		   if(!restart  && connection == GS_LINK_STAT_NORMAL){
 		     setLiveAudio(true);
@@ -84,12 +90,6 @@ int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
 		if(restart && connection == GS_LINK_STAT_LOST){
 		  setLiveAudio(false);
 		}
-
-        if(connection != GS_LINK_STAT_NORMAL){
-           clock_gettime(CLOCK_MONOTONIC, &last);
-        } else {
-           clock_gettime(CLOCK_MONOTONIC, &now);
-        }
 	}
 	return getTimeout(this);
 }
