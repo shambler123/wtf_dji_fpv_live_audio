@@ -8,6 +8,9 @@
 
 void initLibs() {
     ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
+    gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
+    hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
+    gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
     if (gs_enable_audio_liveview == 0) {
         gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
     }
@@ -62,11 +65,8 @@ bool isAirUnitLite(void *hardware_info){
 
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
     initLibs();
-	gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
-	uint32_t *hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
 
-	if(!isAirUnitLite(hardware_info)){
-		gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
+	if(hardware_info != 0 && !isAirUnitLite(hardware_info)){
 		gs_link_stat_t connection = GS_LINK_STAT_UKNOWN;
 		gs_link_stat_t *connection_status = &connection;
 		gs_modem_get_link_state_wrap(hardware_info, connection_status);
