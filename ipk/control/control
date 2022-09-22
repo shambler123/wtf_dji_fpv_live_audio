@@ -1,5 +1,5 @@
 Package: live-audio
-Version: 1.1.2
+Version: 1.1.3
 Maintainer: shambler
 Description: This package enables live audio on DJI FPV v1, with the air unit vista has no mic!
 Architecture: pigeon-glasses-v1

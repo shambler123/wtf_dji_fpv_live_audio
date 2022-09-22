@@ -9,7 +9,7 @@
 void initLibs() {
     ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
     gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
-    hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
+    *hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
     gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
 
     if (gs_enable_audio_liveview == 0) {
