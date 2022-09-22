@@ -23,5 +23,5 @@ uint32_t getTimeout(void *this);
 uint32_t getSettings();
 void initLibs();
 void updateConnection();
-void setLiveAudio(bool enable, void *hardware_info);
-bool isAirUnitLite(void *hardware_info);
+void setLiveAudio(bool enable);
+bool isAirUnitLite();
