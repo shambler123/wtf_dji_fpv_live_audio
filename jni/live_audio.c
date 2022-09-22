@@ -11,10 +11,7 @@ void initLibs() {
     gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
     hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
     gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
-
-    if (gs_enable_audio_liveview == 0) {
-        gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
-    }
+    gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
 
     if (djiGUILib == 0) {
         djiGUILib = dlopen("/system/lib/libtp1801_gui.so", 1);
