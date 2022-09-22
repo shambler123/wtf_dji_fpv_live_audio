@@ -64,16 +64,12 @@ bool isAirUnitLite(void *hardware_info){
 	return false;
 }
 
-void updateConnection() {
-	connection = GS_LINK_STAT_UKNOWN;
-	gs_link_stat_t *connection_status = &connection;
-	gs_modem_get_link_state_wrap(hardware_info, connection_status);
-}
-
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
     initLibs();
 	if(hardware_info != 0 && !isAirUnitLite(hardware_info)){
-        updateConnection();
+        gs_link_stat_t connection = GS_LINK_STAT_UKNOWN;
+        gs_link_stat_t *connection_status = &connection;
+        gs_modem_get_link_state_wrap(hardware_info, connection_status);
 
 		if ((now.tv_sec - last.tv_sec) > 9) {
 		   if(!restart  && connection == GS_LINK_STAT_NORMAL){

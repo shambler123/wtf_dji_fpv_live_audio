@@ -14,7 +14,6 @@ uint32_t *hardware_info = 0;
 
 static void *djiGUILib = 0;
 static uint32_t *ui_config;
-static gs_link_stat_t connection;
 
 struct timespec last, now;
 static bool restart = false;
