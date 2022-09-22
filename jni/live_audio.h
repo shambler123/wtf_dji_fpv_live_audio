@@ -12,7 +12,7 @@ static uint32_t (*gs_enable_audio_liveview)(void *_gs_info, bool b_enable) = 0;
 static uint32_t (*gs_get_uav_hardware_version)(void *_gs_info, char *_hw_ver) = 0;
 static void *djiGUILib = 0;
 
-struct timespec start;
+struct timespec prev;
 struct timespec now;
 static bool restart = false;
 static uint32_t (* timeout)(void *this) = 0;

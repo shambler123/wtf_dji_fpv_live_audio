@@ -69,12 +69,12 @@ int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
 		gs_modem_get_link_state_wrap(hardware_info, connection_status);
 
 		if(connection != GS_LINK_STAT_NORMAL){
-		   clock_gettime(CLOCK_MONOTONIC, &start);
+		   clock_gettime(CLOCK_MONOTONIC, &prev);
 		} else {
 		   clock_gettime(CLOCK_MONOTONIC, &now);
 		}
 
-		if ((now.tv_sec - start.tv_sec) > 9) {
+		if ((now.tv_sec - prev.tv_sec) > 9) {
 		   if(!restart  && connection == GS_LINK_STAT_NORMAL){
 		     setLiveAudio(true, hardware_info, ui_config);
 		   }
