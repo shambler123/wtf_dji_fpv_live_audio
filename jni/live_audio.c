@@ -6,11 +6,16 @@
 #include <unistd.h>
 #include "live_audio.h"
 
+initLibs() {
+  if (djiGUILib == 0) {
+    djiGUILib = dlopen("/system/lib/libtp1801_gui.so", 1);
+  }
+}
+
 uint32_t getTimeout(void* this) {
    if (timeout == 0 && djiGUILib) {
       timeout = dlsym (djiGUILib, "_ZN19GlassRacingChnlMenu7timeOutEv");
       if (timeout == 0) {
-        printf("timeout error: %s\n", dlerror());
         return 0;
       } else {
         return timeout(this);
@@ -24,7 +29,6 @@ uint32_t getSettings() {
    if (settings == 0 && djiGUILib) {
       settings = dlsym (djiGUILib, "_ZN17GlassUserSettings11getInstanceEv");
       if (settings == 0) {
-        printf("settings error: %s\n", dlerror());
         return 0;
       } else {
         return settings();
@@ -53,7 +57,7 @@ bool isAirUnitLite(void *hardware_info){
 }
 
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
-    djiGUILib = dlopen("/system/lib/libtp1801_gui.so", 1);
+    initLibs();
 	uint32_t *ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
 	gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
 	uint32_t *hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);

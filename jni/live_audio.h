@@ -12,7 +12,8 @@ static uint32_t (*gs_enable_audio_liveview)(void *_gs_info, bool b_enable) = 0;
 static uint32_t (*gs_get_uav_hardware_version)(void *_gs_info, char *_hw_ver) = 0;
 static void *djiGUILib = 0;
 
-struct timespec start, now;
+struct timespec start;
+struct timespec now;
 static bool restart = false;
 static uint32_t (* timeout)(void *this) = 0;
 static uint32_t (* settings)() = 0;
@@ -20,3 +21,4 @@ uint32_t getTimeout(void *this);
 uint32_t getSettings();
 void setLiveAudio(bool enable, void *hardware_info, void *ui_config);
 bool isAirUnitLite(void *hardware_info);
+bool initLibs();
