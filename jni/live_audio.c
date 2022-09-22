@@ -11,6 +11,7 @@ void initLibs() {
     gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
     hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
     gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
+
     if (gs_enable_audio_liveview == 0) {
         gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
     }
@@ -65,19 +66,12 @@ bool isAirUnitLite(void *hardware_info){
 
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
     initLibs();
-
 	if(hardware_info != 0 && !isAirUnitLite(hardware_info)){
 		gs_link_stat_t connection = GS_LINK_STAT_UKNOWN;
 		gs_link_stat_t *connection_status = &connection;
 		gs_modem_get_link_state_wrap(hardware_info, connection_status);
 
-		if(connection != GS_LINK_STAT_NORMAL){
-		   clock_gettime(CLOCK_MONOTONIC, &start);
-		} else {
-		   clock_gettime(CLOCK_MONOTONIC, &now);
-		}
-
-		if ((now.tv_sec - start.tv_sec) > 9) {
+		if ((now.tv_sec - start.tv_sec) > 10) {
 		   if(!restart  && connection == GS_LINK_STAT_NORMAL){
 		     setLiveAudio(true, hardware_info);
 		   }
@@ -86,6 +80,12 @@ int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
 		if(restart && connection == GS_LINK_STAT_LOST){
 		  setLiveAudio(false, hardware_info);
 		}
+
+        if(connection != GS_LINK_STAT_NORMAL){
+           clock_gettime(CLOCK_MONOTONIC, &start);
+        } else {
+           clock_gettime(CLOCK_MONOTONIC, &now);
+        }
 	}
 	return getTimeout(this);
 }
