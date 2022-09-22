@@ -65,7 +65,7 @@ bool isAirUnitLite(void *hardware_info){
 }
 
 void updateConnection() {
-	gs_link_stat_t connection = GS_LINK_STAT_UKNOWN;
+	connection = GS_LINK_STAT_UKNOWN;
 	gs_link_stat_t *connection_status = &connection;
 	gs_modem_get_link_state_wrap(hardware_info, connection_status);
 }
