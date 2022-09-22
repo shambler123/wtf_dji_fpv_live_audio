@@ -18,4 +18,4 @@ clean:
 	rm -f *.ipk
 	rm -rf libs
 	rm -rf obj
-	rm ipk/data/opt/etc/preload.d/liblive_audio_dji.so
+	rm ipk/data/opt/etc/preload.d/liblive_audio.so

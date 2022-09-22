@@ -1,7 +1,7 @@
-Package: live-audio-dji
-Version: 1.0.3
+Package: live-audio
+Version: 1.0.4
 Maintainer: shambler
-Description: This package enables live audio on DJI FPV v1 with the airunit vista has no mic!
+Description: This package enables live audio on DJI FPV v1, with the air unit vista has no mic!
 Architecture: pigeon-glasses-v1
-Homepage: https://github.com/shambler123/wtf_dji_fpv_live_audio/
+Homepage: https://github.com/shambler123/wtf_fpv_live_audio/
 Depends: wtfos-modloader

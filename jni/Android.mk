@@ -6,7 +6,7 @@ LOCAL_CFLAGS += -fPIC -std=c99
 LOCAL_LDFLAGS += -fPIC 
 LOCAL_LDLIBS := -llog
 
-LOCAL_MODULE    := live_audio_dji 
-LOCAL_SRC_FILES := live_audio_dji.c
+LOCAL_MODULE    := live_audio
+LOCAL_SRC_FILES := live_audio.c
 
 include $(BUILD_SHARED_LIBRARY)
