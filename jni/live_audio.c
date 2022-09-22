@@ -6,11 +6,21 @@
 #include <unistd.h>
 #include "live_audio.h"
 
+void initLibs() {
+    ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
+    if (gs_enable_audio_liveview == 0) {
+        gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
+    }
+
+    if (djiGUILib == 0) {
+        djiGUILib = dlopen("/system/lib/libtp1801_gui.so", 1);
+    }
+}
+
 uint32_t getTimeout(void* this) {
    if (timeout == 0 && djiGUILib) {
       timeout = dlsym (djiGUILib, "_ZN19GlassRacingChnlMenu7timeOutEv");
       if (timeout == 0) {
-        printf("timeout error: %s\n", dlerror());
         return 0;
       } else {
         return timeout(this);
@@ -24,7 +34,6 @@ uint32_t getSettings() {
    if (settings == 0 && djiGUILib) {
       settings = dlsym (djiGUILib, "_ZN17GlassUserSettings11getInstanceEv");
       if (settings == 0) {
-        printf("settings error: %s\n", dlerror());
         return 0;
       } else {
         return settings();
@@ -34,9 +43,8 @@ uint32_t getSettings() {
    }
 }
 
-void setLiveAudio(bool enable, void *hardware_info, void *ui_config){
+void setLiveAudio(bool enable, void *hardware_info){
     restart = enable;
-	gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
 	printf("update live audio: %d\n", enable);
 	gs_enable_audio_liveview(hardware_info, enable);
 	printf("update live audio\n");
@@ -53,8 +61,7 @@ bool isAirUnitLite(void *hardware_info){
 }
 
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
-    djiGUILib = dlopen("/system/lib/libtp1801_gui.so", 1);
-	uint32_t *ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
+    initLibs();
 	gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
 	uint32_t *hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
 
@@ -72,12 +79,12 @@ int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
 
 		if ((now.tv_sec - start.tv_sec) > 9) {
 		   if(!restart  && connection == GS_LINK_STAT_NORMAL){
-		     setLiveAudio(true, hardware_info, ui_config);
+		     setLiveAudio(true, hardware_info);
 		   }
 		}
 
 		if(restart && connection == GS_LINK_STAT_LOST){
-		  setLiveAudio(false, hardware_info, ui_config);
+		  setLiveAudio(false, hardware_info);
 		}
 	}
 	return getTimeout(this);
