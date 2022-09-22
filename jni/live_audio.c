@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "live_audio.h"
 
-initLibs() {
+void initLibs() {
   if (djiGUILib == 0) {
     djiGUILib = dlopen("/system/lib/libtp1801_gui.so", 1);
   }
