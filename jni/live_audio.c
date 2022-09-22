@@ -26,6 +26,10 @@ void initLibs() {
   if (gs_enable_audio_liveview == 0) {
     gs_enable_audio_liveview = (void *)*(uint32_t *)((int) ui_config + 0x3e0);
   }
+
+  if (gs_modem_get_link_state_wrap == 0) {
+    gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
+  }
 }
 
 uint32_t getTimeout(void* this) {
@@ -72,6 +76,7 @@ bool isAirUnitLite(){
 }
 
 void updateConnection() {
+
     connection = GS_LINK_STAT_UKNOWN;
     gs_link_stat_t *connection_status = &connection;
     gs_modem_get_link_state_wrap(hardware_info, connection_status);
