@@ -15,7 +15,7 @@ void initLibs() {
     ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
   }
 
-  if (gs_get_uav_hardware_version) {
+  if (gs_get_uav_hardware_version == 0) {
     gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
   }
 
