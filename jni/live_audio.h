@@ -25,3 +25,4 @@ uint32_t getSettings();
 void setLiveAudio(bool enable);
 bool isAirUnitLite();
 void initLibs();
+void updateConnection();
