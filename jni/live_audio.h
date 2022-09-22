@@ -14,13 +14,15 @@ uint32_t *hardware_info = 0;
 
 static void *djiGUILib = 0;
 static uint32_t *ui_config;
+static gs_link_stat_t connection;
 
-struct timespec start, now;
+struct timespec last, now;
 static bool restart = false;
 static uint32_t (* timeout)(void *this) = 0;
 static uint32_t (* settings)() = 0;
 uint32_t getTimeout(void *this);
 uint32_t getSettings();
 void initLibs();
+void updateConnection();
 void setLiveAudio(bool enable, void *hardware_info);
 bool isAirUnitLite(void *hardware_info);
