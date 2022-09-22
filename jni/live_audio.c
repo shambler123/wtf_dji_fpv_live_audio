@@ -7,7 +7,7 @@
 #include "live_audio.h"
 
 void initLibs() {
-    ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
+    uint32_t *ui_config = (uint32_t *)*(uint32_t *)((int)getSettings() + 0xe4);
     gs_get_uav_hardware_version = (void *)*(uint32_t *)((int) ui_config + 0x3a8);
     hardware_info = (uint32_t *)*(uint32_t *)((int) ui_config + 0x4c);
     gs_modem_get_link_state_wrap = (void *)*(uint32_t *)((int) ui_config + 0x228);
@@ -50,14 +50,14 @@ uint32_t getSettings() {
 void setLiveAudio(bool enable){
     restart = enable;
 	printf("update live audio: %d\n", enable);
-	gs_enable_audio_liveview(hardware_info, enable);
+	gs_enable_audio_liveview(&hardware_info, enable);
 	printf("update live audio\n");
 }
 
 bool isAirUnitLite(){
 	char hw_ver[16];
 	memset(hw_ver, 0, 0x10);
-	gs_get_uav_hardware_version(hardware_info, hw_ver);
+	gs_get_uav_hardware_version(&hardware_info, hw_ver);
 	if(strncmp(hw_ver,"LT150 VT Ver.A",0x10) == 0) {
 	  return true;
 	}
@@ -67,12 +67,12 @@ bool isAirUnitLite(){
 void updateConnection() {
      connection = GS_LINK_STAT_UKNOWN;
      gs_link_stat_t *connection_status = &connection;
-     gs_modem_get_link_state_wrap(hardware_info, connection_status);
+     gs_modem_get_link_state_wrap(&hardware_info, connection_status);
 }
 
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
     initLibs();
-	if(hardware_info != 0 && !isAirUnitLite()){
+	if(!isAirUnitLite()){
         updateConnection();
 
         if(connection != GS_LINK_STAT_NORMAL){

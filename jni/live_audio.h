@@ -14,12 +14,13 @@ static uint32_t *hardware_info = 0;
 static gs_link_stat_t connection;
 
 static void *djiGUILib = 0;
-static uint32_t *ui_config;
 
-struct timespec last, now;
+struct timespec last;
+struct timespec now;
 static bool restart = false;
 static uint32_t (* timeout)(void *this) = 0;
 static uint32_t (* settings)() = 0;
+
 uint32_t getTimeout(void *this);
 uint32_t getSettings();
 void initLibs();
