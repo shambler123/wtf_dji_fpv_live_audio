@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "live_audio_dji.h"
+#include "live_audio.h"
 
 uint32_t getTimeout(void* this) {
    if (timeout == 0 && djiGUILib) {
