@@ -26,3 +26,8 @@ void setLiveAudio(bool enable);
 bool isAirUnitLite();
 void initLibs();
 void updateConnection();
+
+bool checkHardwareDevice(char str[16]);
+bool isGogglesV1();
+bool isGogglesV2();
+bool isAirunit();

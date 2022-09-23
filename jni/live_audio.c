@@ -60,23 +60,48 @@ uint32_t getSettings() {
 
 void setLiveAudio(bool enable){
     restart = enable;
-	printf("update live audio: %d\n", enable);
-	gs_enable_audio_liveview(hardware_info, enable);
-	printf("update live audio\n");
+    if (isAirunit()) { //start the audio service on the airunit
+        printf("airunit not yet implemented\n");
+    } else if (isGogglesV2()) {
+       printf("goggle v2 not yet implemented\n");
+    } else if (isGooglesV1()) {
+       printf("update live audio: %d\n", enable);
+       gs_enable_audio_liveview(hardware_info, enable);
+       printf("update live audio\n");
+	}
 }
 
 bool isAirUnitLite(){
-	char hw_ver[16];
+	return checkHardwareDevice("LT150 VT Ver.A");
+}
+
+bool isAirunit(){
+    return false;
+}
+
+bool isGogglesV2(){
+    return false;
+}
+
+bool isGogglesV1(){
+    return true;
+}
+
+bool checkGooglesVersion(char str[16]) {
+    return false;
+}
+
+bool checkHardwareDevice(char str[16]) {
+    char hw_ver[16];
 	memset(hw_ver, 0, 0x10);
 	gs_get_uav_hardware_version(hardware_info, hw_ver);
-	if(strncmp(hw_ver,"LT150 VT Ver.A",0x10) == 0) {
+	if(strncmp(hw_ver, str,0x10) == 0) {
 	  return true;
 	}
 	return false;
 }
 
 void updateConnection() {
-
     connection = GS_LINK_STAT_UKNOWN;
     gs_link_stat_t *connection_status = &connection;
     gs_modem_get_link_state_wrap(hardware_info, connection_status);
@@ -84,6 +109,7 @@ void updateConnection() {
 
 int32_t _ZN19GlassRacingChnlMenu7timeOutEv(void* this){
     initLibs();
+
 
 	if(!isAirUnitLite()){
 		updateConnection();
