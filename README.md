@@ -1,7 +1,8 @@
-# Enable live audio on DJI FPV Goggles V1
+# Enable live audio on DJI FPV Goggles V1 / V2
 Enables the live audio transmission from Air unit to Goggles.
 
-This is only working with v1 goggles and the air unit with microphone (Vista / Runcam Link is not working!)
+This is only working with v1 / v2 goggles and the air unit with microphone (Vista / Runcam Link is not working!)
+(work in progress)
 
 ##### Install
 
