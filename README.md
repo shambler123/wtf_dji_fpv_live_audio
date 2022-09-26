@@ -14,3 +14,6 @@ This is only working with v1 goggles and the air unit with microphone (Vista / R
 ##### Credits
 - Its inspired by funnel who found the solution for v1
 - https://github.com/funneld/djifpv_enable_live_audio
+
+#### Future
+- add support to v2 goggles
